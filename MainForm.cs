@@ -460,17 +460,20 @@ namespace LevelZHelper
         {
             _lockIndices = true;
 
-                ObjectsListBox.Items.Clear();
+            ObjectsListBox.Items.Clear();
 
-                foreach (var config in _configManager.GetConfigs())
-                {
-                    ObjectsListBox.Items.Add(config);
-                }
+            foreach (var config in _configManager.GetConfigs())
+            {
+                ObjectsListBox.Items.Add(config);
+            }
 
+            if (_activeItems != null)
+            {
                 foreach (var item in _activeItems)
                 {
                     ObjectsListBox.SelectedItems.Add(item);
                 }
+            }
 
             _lockIndices = false;
 

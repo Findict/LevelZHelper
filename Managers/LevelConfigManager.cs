@@ -87,12 +87,12 @@ namespace LevelZHelper.Managers
             {
                 foreach (var item in Directory.GetDirectories(tempPath))
                 {
-                    FileSystem.DeleteDirectory(item, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                    FileSystem.DeleteDirectory(item, UIOption.OnlyErrorDialogs, RecycleOption.DeletePermanently);
                 }
 
                 foreach (var item in Directory.GetFiles(tempPath))
                 {
-                    FileSystem.DeleteFile(item, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                    FileSystem.DeleteFile(item, UIOption.OnlyErrorDialogs, RecycleOption.DeletePermanently);
                 }
             }
             else

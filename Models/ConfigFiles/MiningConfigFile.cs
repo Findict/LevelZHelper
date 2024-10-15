@@ -9,7 +9,7 @@ namespace LevelZHelper.Models.ConfigFiles
 
         public MiningConfigFile(IEnumerable<MiningLevelConfig> levelConfig)
         {
-            Replace = true;
+            Replace = false;
             Level = levelConfig.First().Level;
             Blocks = levelConfig.Select(config => $"{config.ModId}:{config.Name}").ToList();
         }

@@ -17,6 +17,7 @@ namespace LevelZHelper
         private TemplatingForm? _templatingForm;
         private BulkAddForm? _bulkAddForm;
         private bool _lockIndices = false;
+        private bool _convert = false;
 
         public MainForm()
         {
@@ -51,7 +52,7 @@ namespace LevelZHelper
         private void ObjectsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_lockIndices) return;
-            
+
             if (sender is ListBox listBox)
             {
                 var selectedIndices = listBox.SelectedIndices.Count;
@@ -131,7 +132,7 @@ namespace LevelZHelper
                 var selectionStart = textBox.SelectionStart;
                 textBox.Text = textBox.Text.Replace(" ", "_");
                 textBox.SelectionStart = selectionStart;
-                
+
                 foreach (var item in _activeItems)
                 {
                     item.ModId = textBox.Text;
@@ -208,7 +209,7 @@ namespace LevelZHelper
 
         private void DuplicateButton_Click(object sender, EventArgs e)
         {
-            DuplicateItem();
+            DuplicateItems();
 
             NameTextBox.Focus();
         }
@@ -345,7 +346,7 @@ namespace LevelZHelper
             switch (e.KeyCode)
             {
                 case Keys.Multiply:
-                    if (ActiveControl is not TextBox && ActiveControl is not RichTextBox) DuplicateItem();
+                    if (ActiveControl is not TextBox && ActiveControl is not RichTextBox) DuplicateItems();
                     break;
                 case Keys.Add:
                     if (ActiveControl is not TextBox && ActiveControl is not RichTextBox) MoveSelection(1);
@@ -380,9 +381,25 @@ namespace LevelZHelper
 
         private void BulkAddItems(BulkAddForm sender, IEnumerable<ILevelConfig>? items)
         {
-            _configManager.AppendItems(items);
+            if (items != null)
+            {
+                _configManager.AppendItems(items);
 
-            RefreshList();
+                RefreshList();
+
+                _lockIndices = true;
+
+                ObjectsListBox.SelectedItems.Clear();
+
+                foreach (var item in items)
+                {
+                    ObjectsListBox.SelectedItems.Add(item);
+                }
+
+                _lockIndices = false;
+
+                ObjectsListBox_SelectedIndexChanged(ObjectsListBox, new EventArgs());
+            }
 
             sender.Close();
             sender.Dispose();
@@ -390,6 +407,15 @@ namespace LevelZHelper
 
         private void AddItem(ConfigType configType)
         {
+            if (_convert)
+            {
+                ConvertSelectedItems(configType);
+
+                ConvertButton_Click(ConvertButton, new EventArgs());
+
+                return;
+            }
+
             var newItem = _configManager.AddItem(configType);
 
             if (newItem == null) return;
@@ -407,6 +433,38 @@ namespace LevelZHelper
             ObjectsListBox.SelectedItems.Add(newItem);
 
             NameTextBox.Focus();
+        }
+
+        private void ConvertSelectedItems(ConfigType configType)
+        {
+            if (_activeItems == null) return;
+
+            _lockIndices = true;
+
+            ObjectsListBox.SelectedItems.Clear();
+
+            foreach (var item in _activeItems.Where(i => i.ConfigType != configType))
+            {
+                var newItem = _configManager.AddItem(configType);
+
+                if (newItem == null) continue;
+
+                newItem.ModId = item.ModId;
+                newItem.Name = item.Name;
+                newItem.TrySetSkill(item.Skill);
+                newItem.TrySetLevel(item.Level);
+                newItem.Material = item.Material;
+
+                ObjectsListBox.Items.Add(newItem);
+                ObjectsListBox.SelectedItems.Add(newItem);
+
+                _configManager.DeleteItem(item);
+                ObjectsListBox.Items.Remove(item);
+            }
+
+            _lockIndices = false;
+
+            ObjectsListBox_SelectedIndexChanged(ObjectsListBox, new EventArgs());
         }
 
         private void AddSmithingDuplicate()
@@ -585,7 +643,7 @@ namespace LevelZHelper
             ClearButton.Enabled = false;
         }
 
-        private void DuplicateItem()
+        private void DuplicateItems()
         {
             if (_activeItems == null || _activeItems.Count == 0) return;
 
@@ -593,16 +651,17 @@ namespace LevelZHelper
 
             ObjectsListBox.SelectedItems.Clear();
 
-            foreach (var item in _activeItems.Where(i => i.ConfigType == ConfigType.Item))
+            foreach (var item in _activeItems)
             {
                 var newItem = _configManager.AddItem(item.ConfigType);
 
-                if (newItem == null) return;
+                if (newItem == null) continue;
 
                 newItem.ModId = item.ModId;
                 newItem.Name = item.Name;
                 newItem.TrySetSkill(item.Skill);
                 newItem.TrySetLevel(item.Level);
+                newItem.Material = item.Material;
 
                 ObjectsListBox.Items.Add(newItem);
                 ObjectsListBox.SelectedItems.Add(newItem);
@@ -671,6 +730,24 @@ namespace LevelZHelper
             _bulkAddForm = new BulkAddForm();
             _bulkAddForm.OnSubmitted += BulkAddItems;
             _bulkAddForm.Show();
+        }
+
+        private void ConvertButton_Click(object sender, EventArgs e)
+        {
+            if (sender is Button convertButton)
+            {
+                if (_convert)
+                {
+                    _convert = false;
+                    convertButton.BackColor = SystemColors.Control;
+                    convertButton.UseVisualStyleBackColor = true;
+                }
+                else
+                {
+                    _convert = true;
+                    convertButton.BackColor = SystemColors.ControlDarkDark;
+                }
+            }
         }
     }
 }

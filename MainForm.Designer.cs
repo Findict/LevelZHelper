@@ -69,6 +69,7 @@
             AddBrewingButton = new Button();
             BulkAddButton = new Button();
             TemplateButton = new Button();
+            ConvertButton = new Button();
             ItemPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)LevelNumericSelector).BeginInit();
             ((System.ComponentModel.ISupportInitialize)IconImageBox).BeginInit();
@@ -76,7 +77,7 @@
             // 
             // ExportButton
             // 
-            ExportButton.Location = new Point(619, 612);
+            ExportButton.Location = new Point(619, 628);
             ExportButton.Name = "ExportButton";
             ExportButton.Size = new Size(120, 23);
             ExportButton.TabIndex = 9;
@@ -93,7 +94,7 @@
             ObjectsListBox.Name = "ObjectsListBox";
             ObjectsListBox.ScrollAlwaysVisible = true;
             ObjectsListBox.SelectionMode = SelectionMode.MultiExtended;
-            ObjectsListBox.Size = new Size(481, 648);
+            ObjectsListBox.Size = new Size(481, 662);
             ObjectsListBox.Sorted = true;
             ObjectsListBox.TabIndex = 0;
             ObjectsListBox.SelectedIndexChanged += ObjectsListBox_SelectedIndexChanged;
@@ -250,7 +251,7 @@
             // 
             // ImportButton
             // 
-            ImportButton.Location = new Point(499, 612);
+            ImportButton.Location = new Point(499, 628);
             ImportButton.Name = "ImportButton";
             ImportButton.Size = new Size(120, 23);
             ImportButton.TabIndex = 8;
@@ -260,7 +261,7 @@
             // 
             // SortButton
             // 
-            SortButton.Location = new Point(499, 635);
+            SortButton.Location = new Point(499, 651);
             SortButton.Name = "SortButton";
             SortButton.Size = new Size(120, 23);
             SortButton.TabIndex = 12;
@@ -377,7 +378,7 @@
             // 
             // ClearButton
             // 
-            ClearButton.Location = new Point(619, 635);
+            ClearButton.Location = new Point(619, 651);
             ClearButton.Name = "ClearButton";
             ClearButton.Size = new Size(120, 23);
             ClearButton.TabIndex = 10;
@@ -388,7 +389,7 @@
             // AddItemButton
             // 
             AddItemButton.Image = Properties.Resources.item_icon;
-            AddItemButton.Location = new Point(499, 549);
+            AddItemButton.Location = new Point(499, 565);
             AddItemButton.Name = "AddItemButton";
             AddItemButton.Size = new Size(40, 40);
             AddItemButton.TabIndex = 18;
@@ -398,7 +399,7 @@
             // AddBlockButton
             // 
             AddBlockButton.Image = Properties.Resources.block_icon;
-            AddBlockButton.Location = new Point(539, 549);
+            AddBlockButton.Location = new Point(539, 565);
             AddBlockButton.Name = "AddBlockButton";
             AddBlockButton.Size = new Size(40, 40);
             AddBlockButton.TabIndex = 19;
@@ -408,7 +409,7 @@
             // AddEntityButton
             // 
             AddEntityButton.Image = Properties.Resources.entity_icon;
-            AddEntityButton.Location = new Point(579, 549);
+            AddEntityButton.Location = new Point(579, 565);
             AddEntityButton.Name = "AddEntityButton";
             AddEntityButton.Size = new Size(40, 40);
             AddEntityButton.TabIndex = 20;
@@ -418,7 +419,7 @@
             // AddMiningButton
             // 
             AddMiningButton.Image = Properties.Resources.mining_icon;
-            AddMiningButton.Location = new Point(619, 549);
+            AddMiningButton.Location = new Point(619, 565);
             AddMiningButton.Name = "AddMiningButton";
             AddMiningButton.Size = new Size(40, 40);
             AddMiningButton.TabIndex = 21;
@@ -428,7 +429,7 @@
             // AddSmithingButton
             // 
             AddSmithingButton.Image = Properties.Resources.smithing_icon;
-            AddSmithingButton.Location = new Point(659, 549);
+            AddSmithingButton.Location = new Point(659, 565);
             AddSmithingButton.Name = "AddSmithingButton";
             AddSmithingButton.Size = new Size(40, 40);
             AddSmithingButton.TabIndex = 22;
@@ -438,7 +439,7 @@
             // AddBrewingButton
             // 
             AddBrewingButton.Image = Properties.Resources.brewing_icon;
-            AddBrewingButton.Location = new Point(699, 549);
+            AddBrewingButton.Location = new Point(699, 565);
             AddBrewingButton.Name = "AddBrewingButton";
             AddBrewingButton.Size = new Size(40, 40);
             AddBrewingButton.TabIndex = 23;
@@ -447,7 +448,7 @@
             // 
             // BulkAddButton
             // 
-            BulkAddButton.Location = new Point(499, 589);
+            BulkAddButton.Location = new Point(499, 605);
             BulkAddButton.Name = "BulkAddButton";
             BulkAddButton.Size = new Size(120, 23);
             BulkAddButton.TabIndex = 24;
@@ -457,7 +458,7 @@
             // 
             // TemplateButton
             // 
-            TemplateButton.Location = new Point(619, 589);
+            TemplateButton.Location = new Point(619, 605);
             TemplateButton.Name = "TemplateButton";
             TemplateButton.Size = new Size(120, 23);
             TemplateButton.TabIndex = 25;
@@ -465,11 +466,21 @@
             TemplateButton.UseVisualStyleBackColor = true;
             TemplateButton.Click += TemplateButton_Click;
             // 
+            // ConvertButton
+            // 
+            ConvertButton.Location = new Point(499, 543);
+            ConvertButton.Name = "ConvertButton";
+            ConvertButton.Size = new Size(240, 23);
+            ConvertButton.TabIndex = 17;
+            ConvertButton.Text = "Convert";
+            ConvertButton.UseVisualStyleBackColor = true;
+            ConvertButton.Click += ConvertButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(750, 672);
+            ClientSize = new Size(750, 697);
             Controls.Add(BulkAddButton);
             Controls.Add(TemplateButton);
             Controls.Add(AddBrewingButton);
@@ -483,6 +494,7 @@
             Controls.Add(IconImageBox);
             Controls.Add(VersionTextBox);
             Controls.Add(VersionLabel);
+            Controls.Add(ConvertButton);
             Controls.Add(DescriptionRichTextBox);
             Controls.Add(DescriptionLabel);
             Controls.Add(AddOnIdTextBox);
@@ -555,5 +567,6 @@
         private TextBox MaterialTextBox;
         private Button BulkAddButton;
         private Button TemplateButton;
+        private Button ConvertButton;
     }
 }

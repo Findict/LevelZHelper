@@ -9,7 +9,7 @@ namespace LevelZHelper.Models.ConfigFiles
 
         public BrewingConfigFile(IEnumerable<BrewingLevelConfig> levelConfig)
         {
-            Replace = true;
+            Replace = false;
             Level = levelConfig.First().Level;
             Items = levelConfig.Select(config => $"{config.ModId}:{config.Name}").ToList();
         }

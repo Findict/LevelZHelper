@@ -9,7 +9,7 @@ namespace LevelZHelper.Models.ConfigFiles
 
         public BlockConfigFile(BlockLevelConfig levelConfig)
         {
-            Replace = true;
+            Replace = false;
             Skill = levelConfig.Skill.ToString().ToLower();
             Level = levelConfig.Level;
             Block = "minecraft:custom_block";

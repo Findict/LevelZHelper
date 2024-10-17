@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using LevelZHelper.Controls;
 using LevelZHelper.Managers;
 using LevelZHelper.Models;
 using LevelZHelper.Models.Enums;
@@ -13,7 +13,6 @@ namespace LevelZHelper
         private readonly LevelConfigManager _configManager;
 
         private List<ILevelConfig>? _activeItems;
-        private AddOnMetaData? _metaData;
         private TemplatingForm? _templatingForm;
         private BulkAddForm? _bulkAddForm;
         private bool _lockIndices = false;
@@ -34,9 +33,14 @@ namespace LevelZHelper
 
             AddItemButton.ContextMenuStrip = itemContextMenu;
 
-            _metaData = _configManager.GetMetaData();
+            MetadataValuesControl.OnMetadataSubmitted += OnMetadataUpdate;
 
             EmptyForm();
+        }
+
+        private void OnMetadataUpdate(MetadataControl sender, AddOnMetadata metadata)
+        {
+            _configManager.Metadata = metadata;
         }
 
         private void EmptyForm()
@@ -220,9 +224,11 @@ namespace LevelZHelper
 
             using var dialog = new SaveFileDialog();
 
+            var metadata = _configManager.Metadata;
+
             dialog.Filter = "Jar file|*.jar";
             dialog.DefaultExt = "jar";
-            dialog.FileName = $"{_metaData?.Name?.ToLower().Replace(" ", "_") ?? "no_name"}-{_metaData?.Version ?? "0.0"}.jar";
+            dialog.FileName = $"{metadata?.Name?.ToLower().Replace(" ", "_") ?? "no_name"}-{metadata?.Version ?? "0.0"}.jar";
 
             var result = dialog.ShowDialog();
 
@@ -250,7 +256,6 @@ namespace LevelZHelper
                 _configManager.ImportAll(dialog.FileName);
 
                 RefreshMetaData();
-                RefreshIcon();
                 RefreshList();
             }
 
@@ -264,17 +269,11 @@ namespace LevelZHelper
             if (confirmResult != DialogResult.Yes) return;
 
             _configManager.ClearAll();
+            MetadataValuesControl.UpdateMetadata(_configManager.Metadata);
 
             ObjectsListBox.Items.Clear();
 
             _activeItems = null;
-
-            IconImageBox.Image = null;
-            AddOnIdTextBox.Text = string.Empty;
-            AddOnNameTextBox.Text = string.Empty;
-            VersionTextBox.Text = string.Empty;
-            AuthorTextBox.Text = string.Empty;
-            DescriptionRichTextBox.Text = string.Empty;
 
             ModKeyTextBox.Text = string.Empty;
             NameTextBox.Text = string.Empty;
@@ -283,62 +282,6 @@ namespace LevelZHelper
             MaterialTextBox.Text = string.Empty;
 
             SetEnabled();
-        }
-
-        private void AddOnIdTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (sender is TextBox textBox && _metaData != null)
-            {
-                _metaData.Id = textBox.Text;
-            }
-        }
-
-        private void AddOnNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (sender is TextBox textBox && _metaData != null)
-            {
-                _metaData.Name = textBox.Text;
-            }
-        }
-
-        private void VersionTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (sender is TextBox textBox && _metaData != null)
-            {
-                _metaData.Version = textBox.Text;
-            }
-        }
-
-        private void AuthorTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (sender is TextBox textBox && _metaData != null)
-            {
-                _metaData.Author = textBox.Text;
-            }
-        }
-
-        private void DescriptionRichTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (sender is RichTextBox textBox && _metaData != null)
-            {
-                _metaData.Description = textBox.Text;
-            }
-        }
-
-        private void IconImageBox_Click(object sender, EventArgs e)
-        {
-            using var dialog = new OpenFileDialog();
-
-            dialog.Filter = "Images|*.png";
-
-            var result = dialog.ShowDialog();
-
-            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.FileName))
-            {
-                _configManager.ImportIcon(dialog.FileName);
-
-                RefreshIcon();
-            }
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -497,21 +440,7 @@ namespace LevelZHelper
 
         private void RefreshMetaData()
         {
-            var metaData = _configManager.GetMetaData();
-
-            if (metaData != null)
-            {
-                AddOnIdTextBox.Text = metaData.Id;
-                AddOnNameTextBox.Text = metaData.Name;
-                VersionTextBox.Text = metaData.Version;
-                AuthorTextBox.Text = metaData.Author;
-                DescriptionRichTextBox.Text = metaData.Description;
-            }
-        }
-
-        private void RefreshIcon()
-        {
-            IconImageBox.Image = _configManager.GetIcon(); ;
+            MetadataValuesControl.UpdateMetadata(_configManager.Metadata);
         }
 
         private void RefreshList()
@@ -581,13 +510,6 @@ namespace LevelZHelper
         {
             ObjectsListBox.Enabled = true;
 
-            IconImageBox.Enabled = true;
-            AddOnIdTextBox.Enabled = true;
-            AddOnNameTextBox.Enabled = true;
-            VersionTextBox.Enabled = true;
-            AuthorTextBox.Enabled = true;
-            DescriptionRichTextBox.Enabled = true;
-
             ModKeyTextBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.ModKey) > 0);
             NameTextBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Name) > 0);
             SkillsComboBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Skill) > 0);
@@ -613,13 +535,6 @@ namespace LevelZHelper
         private void DisableAll()
         {
             ObjectsListBox.Enabled = false;
-
-            IconImageBox.Enabled = false;
-            AddOnIdTextBox.Enabled = false;
-            AddOnNameTextBox.Enabled = false;
-            VersionTextBox.Enabled = false;
-            AuthorTextBox.Enabled = false;
-            DescriptionRichTextBox.Enabled = false;
 
             ModKeyTextBox.Enabled = false;
             NameTextBox.Enabled = false;
@@ -672,6 +587,16 @@ namespace LevelZHelper
             ObjectsListBox_SelectedIndexChanged(ObjectsListBox, new EventArgs());
         }
 
+        private void AddItemButton_Click(object sender, EventArgs e)
+        {
+            AddItem(ConfigType.Item);
+        }
+
+        private void AddMaterialItemButton_Click(object sender, EventArgs e)
+        {
+            AddItem(ConfigType.MaterialItem);
+        }
+
         private void AddBlockButton_Click(object sender, EventArgs e)
         {
             AddItem(ConfigType.Block);
@@ -695,26 +620,6 @@ namespace LevelZHelper
         private void AddBrewingButton_Click(object sender, EventArgs e)
         {
             AddItem(ConfigType.Brewing);
-        }
-
-        private void ItemToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddItem(ConfigType.Item);
-        }
-
-        private void AddItemButton_MouseDown(object sender, MouseEventArgs e)
-        {
-            switch (e.Button)
-            {
-                case MouseButtons.Left:
-                    AddItem(ConfigType.Item);
-                    break;
-                case MouseButtons.Right:
-                    AddItem(ConfigType.MaterialItem);
-                    break;
-                default:
-                    break;
-            }
         }
 
         private void TemplateButton_Click(object sender, EventArgs e)

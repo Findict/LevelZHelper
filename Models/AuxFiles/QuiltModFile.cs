@@ -4,7 +4,7 @@ namespace LevelZHelper.Models.AuxFiles
 {
     internal class QuiltModFile
     {
-        public QuiltModFile(AddOnMetaData metaData)
+        public QuiltModFile(AddOnMetadata metaData)
         {
             SchemaVersion = 1;
             QuiltLoader = new QuiltLoader(metaData);
@@ -19,7 +19,7 @@ namespace LevelZHelper.Models.AuxFiles
 
     internal class QuiltLoader
     {
-        public QuiltLoader(AddOnMetaData metaData)
+        public QuiltLoader(AddOnMetadata metaData)
         {
             Group = "com.modrinth";
             Id = metaData.Id;
@@ -50,7 +50,7 @@ namespace LevelZHelper.Models.AuxFiles
 
     internal class QuiltMetaData
     {
-        public QuiltMetaData(AddOnMetaData metaData)
+        public QuiltMetaData(AddOnMetadata metaData)
         {
             Name = metaData.Name;
             Description = metaData.Description;

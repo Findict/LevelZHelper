@@ -4,7 +4,7 @@ namespace LevelZHelper.Models.AuxFiles
 {
     internal class PackMetaFile
     {
-        public PackMetaFile(AddOnMetaData metaData)
+        public PackMetaFile(AddOnMetadata metaData)
         {
             Pack = new PackFile(15, metaData.Description);
         }

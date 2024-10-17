@@ -6,7 +6,7 @@ namespace LevelZHelper.Models.AuxFiles
     {
         public FabricModFile() { }
 
-        public FabricModFile(AddOnMetaData metaData)
+        public FabricModFile(AddOnMetadata metaData)
         {
             SchemaVersion = 1;
             Id = metaData.Id;

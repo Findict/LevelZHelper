@@ -15,14 +15,14 @@ namespace LevelZHelper.Managers
     internal class LevelConfigManager
     {
         private readonly List<ILevelConfig> _configs = new();
-        private readonly AddOnMetaData _metaData = new();
-        private Image? _icon;
 
         private readonly JsonSerializerOptions _convertOptions = new JsonSerializerOptions
         {
             WriteIndented = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
+
+        internal AddOnMetadata Metadata { get; set; } = new();
 
         internal ILevelConfig? AddItem(ConfigType configType)
         {
@@ -63,20 +63,13 @@ namespace LevelZHelper.Managers
         internal List<ILevelConfig> GetConfigs()
             => _configs;
 
-        internal AddOnMetaData GetMetaData()
-            => _metaData;
-
-        internal Image? GetIcon()
-            => _icon;
-
         internal bool DeleteItem(ILevelConfig item) 
             => _configs.Remove(item);
 
         internal void ClearAll()
         {
             _configs.Clear();
-            _metaData.Clear();
-            _icon = null;
+            Metadata.Clear();
         }
 
         internal void ImportAll(string selectedFile)
@@ -202,7 +195,7 @@ namespace LevelZHelper.Managers
 
             var iconFile = File.OpenRead(filePath);
 
-            _icon = Image.FromStream(iconFile);
+            Metadata.SetIcon(Image.FromStream(iconFile));
 
             iconFile.Close();
         }
@@ -216,7 +209,7 @@ namespace LevelZHelper.Managers
 
             if (fileData == null) return;
 
-            _metaData.Update(fileData);
+            Metadata.Update(fileData);
         }
 
         private void ImportItems(string directory)
@@ -355,18 +348,18 @@ namespace LevelZHelper.Managers
 
         private void ExportIcon(string selectedPath)
         {
-            if (_icon == null) return;
+            if (Metadata.Icon == null) return;
 
-            _icon.Save($"{selectedPath}icon.png");
+            Metadata.Icon.Save($"{selectedPath}icon.png");
         }
 
         private void ExportMetaData(string selectedPath)
         {
-            if (_metaData == null) return;
+            if (Metadata == null) return;
 
-            WriteFile(selectedPath, "fabric.mod", new FabricModFile(_metaData));
-            WriteFile(selectedPath, "pack", new PackMetaFile(_metaData), "mcmeta");
-            WriteFile(selectedPath, "quilt.mod", new QuiltModFile(_metaData));
+            WriteFile(selectedPath, "fabric.mod", new FabricModFile(Metadata));
+            WriteFile(selectedPath, "pack", new PackMetaFile(Metadata), "mcmeta");
+            WriteFile(selectedPath, "quilt.mod", new QuiltModFile(Metadata));
         }
 
         private void ExportItems(string selectedPath)

@@ -103,9 +103,29 @@ namespace LevelZHelper.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap material_item_icon {
+            get {
+                object obj = ResourceManager.GetObject("material_item_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mining_icon {
             get {
                 object obj = ResourceManager.GetObject("mining_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap no_img {
+            get {
+                object obj = ResourceManager.GetObject("no_img", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -64,7 +64,7 @@ namespace LevelZHelper.Managers
             => _configs;
 
         internal List<ILevelConfig> GetConfigs(string search)
-            => string.IsNullOrWhiteSpace(search) ? GetConfigs() : _configs.Where(c => c.ToString()?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false).ToList();
+            => string.IsNullOrEmpty(search) ? GetConfigs().ToList() : _configs.Where(c => c.ToString()?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false).ToList();
 
         internal bool DeleteItem(ILevelConfig item) 
             => _configs.Remove(item);

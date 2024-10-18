@@ -61,6 +61,7 @@
             AddMaterialItemButton = new Button();
             SearchTextBox = new TextBox();
             ResetSearchButton = new FontAwesome.Sharp.IconButton();
+            ItemCountLabel = new Label();
             ItemPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)LevelNumericSelector).BeginInit();
             SuspendLayout();
@@ -85,7 +86,7 @@
             ObjectsListBox.Name = "ObjectsListBox";
             ObjectsListBox.ScrollAlwaysVisible = true;
             ObjectsListBox.SelectionMode = SelectionMode.MultiExtended;
-            ObjectsListBox.Size = new Size(481, 746);
+            ObjectsListBox.Size = new Size(481, 718);
             ObjectsListBox.Sorted = true;
             ObjectsListBox.TabIndex = 0;
             ObjectsListBox.SelectedIndexChanged += ObjectsListBox_SelectedIndexChanged;
@@ -119,6 +120,13 @@
             ItemPanel.Name = "ItemPanel";
             ItemPanel.Size = new Size(308, 263);
             ItemPanel.TabIndex = 7;
+            // 
+            // SkillSelector
+            // 
+            SkillSelector.Location = new Point(3, 128);
+            SkillSelector.Name = "SkillSelector";
+            SkillSelector.Size = new Size(300, 100);
+            SkillSelector.TabIndex = 17;
             // 
             // MaterialLabel
             // 
@@ -398,18 +406,21 @@
             ResetSearchButton.UseVisualStyleBackColor = true;
             ResetSearchButton.Click += ResetSearchButton_Click;
             // 
-            // SkillSelector
+            // ItemCountLabel
             // 
-            SkillSelector.Location = new Point(3, 128);
-            SkillSelector.Name = "SkillSelector";
-            SkillSelector.Size = new Size(300, 100);
-            SkillSelector.TabIndex = 17;
+            ItemCountLabel.Location = new Point(12, 761);
+            ItemCountLabel.Name = "ItemCountLabel";
+            ItemCountLabel.Size = new Size(481, 19);
+            ItemCountLabel.TabIndex = 18;
+            ItemCountLabel.Text = "0";
+            ItemCountLabel.TextAlign = ContentAlignment.MiddleRight;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(826, 800);
+            Controls.Add(ItemCountLabel);
             Controls.Add(ResetSearchButton);
             Controls.Add(SearchTextBox);
             Controls.Add(AddMaterialItemButton);
@@ -479,5 +490,6 @@
         private TextBox SearchTextBox;
         private FontAwesome.Sharp.IconButton ResetSearchButton;
         private Controls.SkillSelectorControl SkillSelector;
+        private Label ItemCountLabel;
     }
 }

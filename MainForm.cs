@@ -128,6 +128,8 @@ namespace LevelZHelper
                 {
                     ObjectsListBox.SelectedIndex = targetIndex;
                 }
+
+                UpdateItemCountLabel();
             }
         }
 
@@ -284,6 +286,7 @@ namespace LevelZHelper
             MaterialTextBox.Text = string.Empty;
 
             SetEnabled();
+            UpdateItemCountLabel();
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -378,6 +381,7 @@ namespace LevelZHelper
 
             ObjectsListBox.SelectedItems.Add(newItem);
 
+            UpdateItemCountLabel();
             NameTextBox.Focus();
         }
 
@@ -411,6 +415,7 @@ namespace LevelZHelper
             _lockIndices = false;
 
             ObjectsListBox_SelectedIndexChanged(ObjectsListBox, new EventArgs());
+            UpdateItemCountLabel();
         }
 
         private void AddSmithingDuplicate()
@@ -439,6 +444,7 @@ namespace LevelZHelper
             _lockIndices = false;
 
             ObjectsListBox_SelectedIndexChanged(ObjectsListBox, new EventArgs());
+            UpdateItemCountLabel();
         }
 
         private void RefreshMetaData()
@@ -467,6 +473,7 @@ namespace LevelZHelper
 
             _lockIndices = false;
 
+            UpdateItemCountLabel();
             ObjectsListBox_SelectedIndexChanged(ObjectsListBox, new EventArgs());
         }
 
@@ -588,6 +595,7 @@ namespace LevelZHelper
 
             _lockIndices = false;
 
+            UpdateItemCountLabel();
             ObjectsListBox_SelectedIndexChanged(ObjectsListBox, new EventArgs());
         }
 
@@ -691,6 +699,7 @@ namespace LevelZHelper
 
                 _lockIndices = false;
 
+                UpdateItemCountLabel();
                 ObjectsListBox_SelectedIndexChanged(ObjectsListBox, e);
             }
         }
@@ -698,6 +707,22 @@ namespace LevelZHelper
         private void ResetSearchButton_Click(object sender, EventArgs e)
         {
             SearchTextBox.Text = string.Empty;
+        }
+
+        private void UpdateItemCountLabel()
+        {
+            var totalItems = _configManager.GetConfigs().Count;
+
+            if (string.IsNullOrEmpty(SearchTextBox.Text))
+            {
+                ItemCountLabel.Text = totalItems.ToString();
+
+                return;
+            }
+
+            var visibleItems = ObjectsListBox.Items.Count;
+
+            ItemCountLabel.Text = $"{visibleItems} / {totalItems}";
         }
     }
 }

@@ -43,6 +43,7 @@
             LevelNumericSelector = new NumericUpDown();
             ModKeyTextBox = new TextBox();
             ModKeyLabel = new Label();
+            SkillSelector = new Controls.SkillSelectorControl();
             ObjectTypeLabel = new Label();
             ImportButton = new Button();
             SortButton = new Button();
@@ -57,8 +58,9 @@
             TemplateButton = new Button();
             ConvertButton = new Button();
             MetadataValuesControl = new Controls.MetadataControl();
-            SkillSelectorControl = new Controls.SkillSelectorControl();
             AddMaterialItemButton = new Button();
+            SearchTextBox = new TextBox();
+            ResetSearchButton = new FontAwesome.Sharp.IconButton();
             ItemPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)LevelNumericSelector).BeginInit();
             SuspendLayout();
@@ -79,11 +81,11 @@
             ObjectsListBox.Font = new Font("Consolas", 9F);
             ObjectsListBox.FormattingEnabled = true;
             ObjectsListBox.ItemHeight = 14;
-            ObjectsListBox.Location = new Point(12, 12);
+            ObjectsListBox.Location = new Point(12, 40);
             ObjectsListBox.Name = "ObjectsListBox";
             ObjectsListBox.ScrollAlwaysVisible = true;
             ObjectsListBox.SelectionMode = SelectionMode.MultiExtended;
-            ObjectsListBox.Size = new Size(481, 774);
+            ObjectsListBox.Size = new Size(481, 746);
             ObjectsListBox.Sorted = true;
             ObjectsListBox.TabIndex = 0;
             ObjectsListBox.SelectedIndexChanged += ObjectsListBox_SelectedIndexChanged;
@@ -101,7 +103,7 @@
             // ItemPanel
             // 
             ItemPanel.BorderStyle = BorderStyle.FixedSingle;
-            ItemPanel.Controls.Add(SkillSelectorControl);
+            ItemPanel.Controls.Add(SkillSelector);
             ItemPanel.Controls.Add(MaterialLabel);
             ItemPanel.Controls.Add(MaterialTextBox);
             ItemPanel.Controls.Add(ToSmithingButton);
@@ -117,13 +119,6 @@
             ItemPanel.Name = "ItemPanel";
             ItemPanel.Size = new Size(308, 263);
             ItemPanel.TabIndex = 7;
-            // 
-            // SkillSelectorControl
-            // 
-            SkillSelectorControl.Location = new Point(3, 128);
-            SkillSelectorControl.Name = "SkillSelectorControl";
-            SkillSelectorControl.Size = new Size(300, 100);
-            SkillSelectorControl.TabIndex = 17;
             // 
             // MaterialLabel
             // 
@@ -376,11 +371,47 @@
             AddMaterialItemButton.UseVisualStyleBackColor = true;
             AddMaterialItemButton.Click += AddMaterialItemButton_Click;
             // 
+            // SearchTextBox
+            // 
+            SearchTextBox.Location = new Point(12, 12);
+            SearchTextBox.Name = "SearchTextBox";
+            SearchTextBox.PlaceholderText = "Search...";
+            SearchTextBox.Size = new Size(455, 23);
+            SearchTextBox.TabIndex = 18;
+            SearchTextBox.TextChanged += SearchTextBox_TextChanged;
+            // 
+            // ResetSearchButton
+            // 
+            ResetSearchButton.Cursor = Cursors.Hand;
+            ResetSearchButton.Enabled = false;
+            ResetSearchButton.FlatAppearance.BorderSize = 0;
+            ResetSearchButton.FlatStyle = FlatStyle.Flat;
+            ResetSearchButton.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            ResetSearchButton.IconColor = Color.Red;
+            ResetSearchButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ResetSearchButton.IconSize = 23;
+            ResetSearchButton.Location = new Point(470, 12);
+            ResetSearchButton.Margin = new Padding(0, 3, 3, 3);
+            ResetSearchButton.Name = "ResetSearchButton";
+            ResetSearchButton.Size = new Size(23, 23);
+            ResetSearchButton.TabIndex = 28;
+            ResetSearchButton.UseVisualStyleBackColor = true;
+            ResetSearchButton.Click += ResetSearchButton_Click;
+            // 
+            // SkillSelector
+            // 
+            SkillSelector.Location = new Point(3, 128);
+            SkillSelector.Name = "SkillSelector";
+            SkillSelector.Size = new Size(300, 100);
+            SkillSelector.TabIndex = 17;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(826, 800);
+            Controls.Add(ResetSearchButton);
+            Controls.Add(SearchTextBox);
             Controls.Add(AddMaterialItemButton);
             Controls.Add(MetadataValuesControl);
             Controls.Add(BulkAddButton);
@@ -445,6 +476,8 @@
         private Button ConvertButton;
         private Controls.MetadataControl MetadataValuesControl;
         private Button AddMaterialItemButton;
-        private Controls.SkillSelectorControl SkillSelectorControl;
+        private TextBox SearchTextBox;
+        private FontAwesome.Sharp.IconButton ResetSearchButton;
+        private Controls.SkillSelectorControl SkillSelector;
     }
 }

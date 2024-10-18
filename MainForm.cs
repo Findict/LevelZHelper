@@ -32,7 +32,7 @@ namespace LevelZHelper
             AddItemButton.ContextMenuStrip = itemContextMenu;
 
             MetadataValuesControl.OnMetadataSubmitted += OnMetadataUpdate;
-            SkillSelectorControl.ActiveSkillChanged += OnSkillChanged;
+            SkillSelector.ActiveSkillChanged += OnSkillChanged;
 
             EmptyForm();
         }
@@ -46,7 +46,7 @@ namespace LevelZHelper
         {
             _activeItems = null;
             NameTextBox.Text = string.Empty;
-            SkillSelectorControl.SetValue(Skills.None);
+            SkillSelector.SetValue(Skills.None);
             LevelNumericSelector.Value = 1;
             MaterialTextBox.Text = string.Empty;
 
@@ -77,7 +77,7 @@ namespace LevelZHelper
                 {
                     ModKeyTextBox.Text = string.Empty;
                     NameTextBox.Text = string.Empty;
-                    SkillSelectorControl.SetValue(Skills.None);
+                    SkillSelector.SetValue(Skills.None);
                     LevelNumericSelector.Value = 1;
                     MaterialTextBox.Text = string.Empty;
                     ObjectTypeLabel.Text = string.Empty;
@@ -86,9 +86,11 @@ namespace LevelZHelper
                 {
                     if (_activeItems.All(s => s.ModId == prototype.ModId)) ModKeyTextBox.Text = prototype.ModId;
                     if (_activeItems.All(s => s.Name == prototype.Name)) NameTextBox.Text = prototype.Name;
-                    if (_activeItems.All(s => s.Skill == prototype.Skill)) SkillSelectorControl.SetValue(prototype.Skill);
                     if (_activeItems.All(s => s.Level == prototype.Level)) LevelNumericSelector.Value = prototype.Level;
                     if (_activeItems.All(s => s.Material == prototype.Material)) MaterialTextBox.Text = prototype.Material;
+
+                    if (_activeItems.All(s => s.Skill == prototype.Skill)) SkillSelector.SetValue(prototype.Skill);
+                    else SkillSelector.SetValue(Skills.None);
 
                     ObjectTypeLabel.Text = _activeItems.All(s => s.TypeString == prototype.TypeString) ? prototype.TypeString : "Objects";
                 }
@@ -277,7 +279,7 @@ namespace LevelZHelper
 
             ModKeyTextBox.Text = string.Empty;
             NameTextBox.Text = string.Empty;
-            SkillSelectorControl.SetValue(Skills.None);
+            SkillSelector.SetValue(Skills.None);
             LevelNumericSelector.Value = 1;
             MaterialTextBox.Text = string.Empty;
 
@@ -307,6 +309,7 @@ namespace LevelZHelper
                     if (ActiveControl is not TextBox && ActiveControl is not RichTextBox && ActiveControl is not ComboBox && ActiveControl is not NumericUpDown) DeleteButton_Click(this, e);
                     break;
                 case Keys.Escape:
+                    if (ActiveControl == null || ActiveControl == SearchTextBox) SearchTextBox.Text = string.Empty;
                     ActiveControl = null;
                     break;
             }
@@ -449,7 +452,7 @@ namespace LevelZHelper
 
             ObjectsListBox.Items.Clear();
 
-            foreach (var config in _configManager.GetConfigs())
+            foreach (var config in _configManager.GetConfigs(SearchTextBox.Text))
             {
                 ObjectsListBox.Items.Add(config);
             }
@@ -512,12 +515,13 @@ namespace LevelZHelper
 
             ModKeyTextBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.ModKey) > 0);
             NameTextBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Name) > 0);
-            SkillSelectorControl.SetActive(_activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Skill) > 0));
+            SkillSelector.SetActive(_activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Skill) > 0));
             LevelNumericSelector.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Level) > 0);
             MaterialTextBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Material) > 0);
             ToSmithingButton.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.ToSmithing) > 0);
             DuplicateButton.Enabled = _activeItems != null && _activeItems.Count != 0;
-            DeleteButton.Enabled = true;
+            DeleteButton.Enabled = _activeItems != null && _activeItems.Count != 0;
+            ConvertButton.Enabled = _activeItems != null && _activeItems.Count != 0;
 
             AddItemButton.Enabled = true;
             AddBlockButton.Enabled = true;
@@ -538,7 +542,7 @@ namespace LevelZHelper
 
             ModKeyTextBox.Enabled = false;
             NameTextBox.Enabled = false;
-            SkillSelectorControl.SetActive(false);
+            SkillSelector.SetActive(false);
             LevelNumericSelector.Enabled = false;
             MaterialTextBox.Enabled = false;
             ToSmithingButton.Enabled = false;
@@ -653,6 +657,47 @@ namespace LevelZHelper
                     convertButton.BackColor = SystemColors.ControlDarkDark;
                 }
             }
+        }
+
+        private void SearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (sender is TextBox searchBar)
+            {
+                ResetSearchButton.Enabled = !string.IsNullOrEmpty(searchBar.Text);
+
+                var foundItems = _configManager.GetConfigs(searchBar.Text);
+                var itemsToDelete = new List<ILevelConfig>();
+
+                _lockIndices = true;
+
+                foreach (ILevelConfig item in ObjectsListBox.Items)
+                {
+                    if (foundItems.Contains(item))
+                    {
+                        foundItems.Remove(item);
+
+                        continue;
+                    }
+
+                    itemsToDelete.Add(item);
+                }
+
+                foreach (var item in itemsToDelete)
+                {
+                    ObjectsListBox.Items.Remove(item);
+                }
+
+                ObjectsListBox.Items.AddRange(foundItems.ToArray());
+
+                _lockIndices = false;
+
+                ObjectsListBox_SelectedIndexChanged(ObjectsListBox, e);
+            }
+        }
+
+        private void ResetSearchButton_Click(object sender, EventArgs e)
+        {
+            SearchTextBox.Text = string.Empty;
         }
     }
 }

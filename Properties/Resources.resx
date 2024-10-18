@@ -139,6 +139,42 @@
   <data name="no_img" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\no_img.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="skill_agility" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_agility.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_alchemy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_alchemy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_archery" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_archery.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_defense" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_defense.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_farming" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_farming.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_health" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_health.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_luck" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_luck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_mining" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_mining.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_smithing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_smithing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_stamina" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_stamina.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_strength" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_strength.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skill_trade" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\skill_trade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="smithing_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\smithing_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

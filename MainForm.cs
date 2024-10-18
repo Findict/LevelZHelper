@@ -27,13 +27,12 @@ namespace LevelZHelper
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            SkillsComboBox.DataSource = Enum.GetValues(typeof(Skills));
-
             var itemContextMenu = new ContextMenuStrip();
 
             AddItemButton.ContextMenuStrip = itemContextMenu;
 
             MetadataValuesControl.OnMetadataSubmitted += OnMetadataUpdate;
+            SkillSelectorControl.ActiveSkillChanged += OnSkillChanged;
 
             EmptyForm();
         }
@@ -47,8 +46,9 @@ namespace LevelZHelper
         {
             _activeItems = null;
             NameTextBox.Text = string.Empty;
-            SkillsComboBox.SelectedItem = Skills.None;
+            SkillSelectorControl.SetValue(Skills.None);
             LevelNumericSelector.Value = 1;
+            MaterialTextBox.Text = string.Empty;
 
             SetEnabled();
         }
@@ -77,7 +77,7 @@ namespace LevelZHelper
                 {
                     ModKeyTextBox.Text = string.Empty;
                     NameTextBox.Text = string.Empty;
-                    SkillsComboBox.SelectedItem = Skills.None;
+                    SkillSelectorControl.SetValue(Skills.None);
                     LevelNumericSelector.Value = 1;
                     MaterialTextBox.Text = string.Empty;
                     ObjectTypeLabel.Text = string.Empty;
@@ -86,7 +86,7 @@ namespace LevelZHelper
                 {
                     if (_activeItems.All(s => s.ModId == prototype.ModId)) ModKeyTextBox.Text = prototype.ModId;
                     if (_activeItems.All(s => s.Name == prototype.Name)) NameTextBox.Text = prototype.Name;
-                    if (_activeItems.All(s => s.Skill == prototype.Skill)) SkillsComboBox.SelectedItem = prototype.Skill;
+                    if (_activeItems.All(s => s.Skill == prototype.Skill)) SkillSelectorControl.SetValue(prototype.Skill);
                     if (_activeItems.All(s => s.Level == prototype.Level)) LevelNumericSelector.Value = prototype.Level;
                     if (_activeItems.All(s => s.Material == prototype.Material)) MaterialTextBox.Text = prototype.Material;
 
@@ -163,13 +163,13 @@ namespace LevelZHelper
             }
         }
 
-        private void SkillsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void OnSkillChanged(object sender, Skills skill)
         {
-            if (sender is ComboBox comboBox && comboBox.SelectedItem is Skills selectedSkill && _activeItems != null && _activeItems.Count != 0)
+            if (_activeItems != null && _activeItems.Count != 0)
             {
                 foreach (var item in _activeItems)
                 {
-                    item.TrySetSkill(selectedSkill);
+                    item.TrySetSkill(skill);
                 }
 
                 UpdateSelectedItems();
@@ -277,7 +277,7 @@ namespace LevelZHelper
 
             ModKeyTextBox.Text = string.Empty;
             NameTextBox.Text = string.Empty;
-            SkillsComboBox.SelectedItem = Skills.None;
+            SkillSelectorControl.SetValue(Skills.None);
             LevelNumericSelector.Value = 1;
             MaterialTextBox.Text = string.Empty;
 
@@ -512,7 +512,7 @@ namespace LevelZHelper
 
             ModKeyTextBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.ModKey) > 0);
             NameTextBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Name) > 0);
-            SkillsComboBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Skill) > 0);
+            SkillSelectorControl.SetActive(_activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Skill) > 0));
             LevelNumericSelector.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Level) > 0);
             MaterialTextBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Material) > 0);
             ToSmithingButton.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.ToSmithing) > 0);
@@ -538,7 +538,7 @@ namespace LevelZHelper
 
             ModKeyTextBox.Enabled = false;
             NameTextBox.Enabled = false;
-            SkillsComboBox.Enabled = false;
+            SkillSelectorControl.SetActive(false);
             LevelNumericSelector.Enabled = false;
             MaterialTextBox.Enabled = false;
             ToSmithingButton.Enabled = false;

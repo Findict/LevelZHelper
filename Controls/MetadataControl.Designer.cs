@@ -47,7 +47,7 @@
             // 
             ModIdLabel.AutoSize = true;
             ModIdLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            ModIdLabel.Location = new Point(53, 203);
+            ModIdLabel.Location = new Point(53, 231);
             ModIdLabel.Name = "ModIdLabel";
             ModIdLabel.Size = new Size(21, 15);
             ModIdLabel.TabIndex = 0;
@@ -58,7 +58,7 @@
             // 
             ModNameLabel.AutoSize = true;
             ModNameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            ModNameLabel.Location = new Point(31, 218);
+            ModNameLabel.Location = new Point(31, 246);
             ModNameLabel.Name = "ModNameLabel";
             ModNameLabel.Size = new Size(43, 15);
             ModNameLabel.TabIndex = 1;
@@ -69,7 +69,7 @@
             // 
             AuthorLabel.AutoSize = true;
             AuthorLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            AuthorLabel.Location = new Point(25, 248);
+            AuthorLabel.Location = new Point(25, 276);
             AuthorLabel.Name = "AuthorLabel";
             AuthorLabel.Size = new Size(49, 15);
             AuthorLabel.TabIndex = 2;
@@ -80,7 +80,7 @@
             // 
             DescriptionLabel.AutoSize = true;
             DescriptionLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            DescriptionLabel.Location = new Point(0, 263);
+            DescriptionLabel.Location = new Point(0, 291);
             DescriptionLabel.Name = "DescriptionLabel";
             DescriptionLabel.Size = new Size(74, 15);
             DescriptionLabel.TabIndex = 3;
@@ -89,45 +89,45 @@
             // 
             // ModIdValue
             // 
-            ModIdValue.Location = new Point(80, 203);
+            ModIdValue.Location = new Point(80, 231);
             ModIdValue.Name = "ModIdValue";
-            ModIdValue.Size = new Size(197, 15);
+            ModIdValue.Size = new Size(225, 15);
             ModIdValue.TabIndex = 4;
             ModIdValue.Click += ModIdValue_Click;
             // 
             // ModNameValue
             // 
-            ModNameValue.Location = new Point(80, 218);
+            ModNameValue.Location = new Point(80, 246);
             ModNameValue.Name = "ModNameValue";
-            ModNameValue.Size = new Size(197, 15);
+            ModNameValue.Size = new Size(225, 15);
             ModNameValue.TabIndex = 5;
             // 
             // AuthorValue
             // 
-            AuthorValue.Location = new Point(80, 248);
+            AuthorValue.Location = new Point(80, 276);
             AuthorValue.Name = "AuthorValue";
-            AuthorValue.Size = new Size(197, 15);
+            AuthorValue.Size = new Size(225, 15);
             AuthorValue.TabIndex = 6;
             // 
             // DescriptionValue
             // 
-            DescriptionValue.Location = new Point(80, 263);
+            DescriptionValue.Location = new Point(80, 291);
             DescriptionValue.Name = "DescriptionValue";
-            DescriptionValue.Size = new Size(197, 60);
+            DescriptionValue.Size = new Size(225, 60);
             DescriptionValue.TabIndex = 7;
             // 
             // VersionValue
             // 
-            VersionValue.Location = new Point(80, 233);
+            VersionValue.Location = new Point(80, 261);
             VersionValue.Name = "VersionValue";
-            VersionValue.Size = new Size(197, 15);
+            VersionValue.Size = new Size(225, 15);
             VersionValue.TabIndex = 9;
             // 
             // VersionLabel
             // 
             VersionLabel.AutoSize = true;
             VersionLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            VersionLabel.Location = new Point(23, 233);
+            VersionLabel.Location = new Point(23, 261);
             VersionLabel.Name = "VersionLabel";
             VersionLabel.Size = new Size(51, 15);
             VersionLabel.TabIndex = 8;
@@ -142,7 +142,7 @@
             IconImage.InitialImage = Properties.Resources.no_img;
             IconImage.Location = new Point(80, 3);
             IconImage.Name = "IconImage";
-            IconImage.Size = new Size(197, 197);
+            IconImage.Size = new Size(225, 225);
             IconImage.SizeMode = PictureBoxSizeMode.StretchImage;
             IconImage.TabIndex = 10;
             IconImage.TabStop = false;
@@ -155,7 +155,7 @@
             EditButton.IconChar = FontAwesome.Sharp.IconChar.Pencil;
             EditButton.IconColor = Color.Black;
             EditButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            EditButton.Location = new Point(6, 135);
+            EditButton.Location = new Point(9, 163);
             EditButton.Name = "EditButton";
             EditButton.Size = new Size(65, 65);
             EditButton.TabIndex = 11;
@@ -179,7 +179,7 @@
             Controls.Add(ModNameLabel);
             Controls.Add(ModIdLabel);
             Name = "MetadataControl";
-            Size = new Size(280, 323);
+            Size = new Size(308, 351);
             Load += MetadataControl_Load;
             ((System.ComponentModel.ISupportInitialize)IconImage).EndInit();
             ResumeLayout(false);

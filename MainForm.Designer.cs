@@ -38,11 +38,9 @@
             ToSmithingButton = new Button();
             DuplicateButton = new Button();
             NameLabel = new Label();
-            SkillLabel = new Label();
             NameTextBox = new TextBox();
             LevelLabel = new Label();
             LevelNumericSelector = new NumericUpDown();
-            SkillsComboBox = new ComboBox();
             ModKeyTextBox = new TextBox();
             ModKeyLabel = new Label();
             ObjectTypeLabel = new Label();
@@ -59,6 +57,7 @@
             TemplateButton = new Button();
             ConvertButton = new Button();
             MetadataValuesControl = new Controls.MetadataControl();
+            SkillSelectorControl = new Controls.SkillSelectorControl();
             AddMaterialItemButton = new Button();
             ItemPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)LevelNumericSelector).BeginInit();
@@ -66,9 +65,10 @@
             // 
             // ExportButton
             // 
-            ExportButton.Location = new Point(639, 612);
+            ExportButton.Location = new Point(654, 732);
+            ExportButton.Margin = new Padding(1);
             ExportButton.Name = "ExportButton";
-            ExportButton.Size = new Size(140, 23);
+            ExportButton.Size = new Size(153, 23);
             ExportButton.TabIndex = 9;
             ExportButton.Text = "Export";
             ExportButton.UseVisualStyleBackColor = true;
@@ -83,16 +83,16 @@
             ObjectsListBox.Name = "ObjectsListBox";
             ObjectsListBox.ScrollAlwaysVisible = true;
             ObjectsListBox.SelectionMode = SelectionMode.MultiExtended;
-            ObjectsListBox.Size = new Size(481, 648);
+            ObjectsListBox.Size = new Size(481, 774);
             ObjectsListBox.Sorted = true;
             ObjectsListBox.TabIndex = 0;
             ObjectsListBox.SelectedIndexChanged += ObjectsListBox_SelectedIndexChanged;
             // 
             // DeleteButton
             // 
-            DeleteButton.Location = new Point(199, 156);
+            DeleteButton.Location = new Point(205, 234);
             DeleteButton.Name = "DeleteButton";
-            DeleteButton.Size = new Size(76, 23);
+            DeleteButton.Size = new Size(98, 23);
             DeleteButton.TabIndex = 14;
             DeleteButton.Text = "Delete";
             DeleteButton.UseVisualStyleBackColor = true;
@@ -101,28 +101,34 @@
             // ItemPanel
             // 
             ItemPanel.BorderStyle = BorderStyle.FixedSingle;
+            ItemPanel.Controls.Add(SkillSelectorControl);
             ItemPanel.Controls.Add(MaterialLabel);
             ItemPanel.Controls.Add(MaterialTextBox);
             ItemPanel.Controls.Add(ToSmithingButton);
             ItemPanel.Controls.Add(DuplicateButton);
             ItemPanel.Controls.Add(NameLabel);
-            ItemPanel.Controls.Add(SkillLabel);
             ItemPanel.Controls.Add(NameTextBox);
             ItemPanel.Controls.Add(LevelLabel);
             ItemPanel.Controls.Add(LevelNumericSelector);
-            ItemPanel.Controls.Add(SkillsComboBox);
             ItemPanel.Controls.Add(ModKeyTextBox);
             ItemPanel.Controls.Add(ModKeyLabel);
             ItemPanel.Controls.Add(DeleteButton);
-            ItemPanel.Location = new Point(499, 341);
+            ItemPanel.Location = new Point(499, 369);
             ItemPanel.Name = "ItemPanel";
-            ItemPanel.Size = new Size(280, 184);
+            ItemPanel.Size = new Size(308, 263);
             ItemPanel.TabIndex = 7;
+            // 
+            // SkillSelectorControl
+            // 
+            SkillSelectorControl.Location = new Point(3, 128);
+            SkillSelectorControl.Name = "SkillSelectorControl";
+            SkillSelectorControl.Size = new Size(300, 100);
+            SkillSelectorControl.TabIndex = 17;
             // 
             // MaterialLabel
             // 
             MaterialLabel.AutoSize = true;
-            MaterialLabel.Location = new Point(3, 131);
+            MaterialLabel.Location = new Point(3, 102);
             MaterialLabel.Name = "MaterialLabel";
             MaterialLabel.Size = new Size(50, 15);
             MaterialLabel.TabIndex = 16;
@@ -130,17 +136,17 @@
             // 
             // MaterialTextBox
             // 
-            MaterialTextBox.Location = new Point(93, 128);
+            MaterialTextBox.Location = new Point(93, 99);
             MaterialTextBox.Name = "MaterialTextBox";
-            MaterialTextBox.Size = new Size(182, 23);
+            MaterialTextBox.Size = new Size(210, 23);
             MaterialTextBox.TabIndex = 15;
             MaterialTextBox.TextChanged += MaterialTextBox_TextChanged;
             // 
             // ToSmithingButton
             // 
-            ToSmithingButton.Location = new Point(3, 156);
+            ToSmithingButton.Location = new Point(3, 234);
             ToSmithingButton.Name = "ToSmithingButton";
-            ToSmithingButton.Size = new Size(76, 23);
+            ToSmithingButton.Size = new Size(98, 23);
             ToSmithingButton.TabIndex = 4;
             ToSmithingButton.Text = "Smithing";
             ToSmithingButton.UseVisualStyleBackColor = true;
@@ -148,9 +154,9 @@
             // 
             // DuplicateButton
             // 
-            DuplicateButton.Location = new Point(79, 156);
+            DuplicateButton.Location = new Point(104, 234);
             DuplicateButton.Name = "DuplicateButton";
-            DuplicateButton.Size = new Size(120, 23);
+            DuplicateButton.Size = new Size(98, 23);
             DuplicateButton.TabIndex = 5;
             DuplicateButton.Text = "Duplicate";
             DuplicateButton.UseVisualStyleBackColor = true;
@@ -165,27 +171,18 @@
             NameLabel.TabIndex = 6;
             NameLabel.Text = "Item name";
             // 
-            // SkillLabel
-            // 
-            SkillLabel.AutoSize = true;
-            SkillLabel.Location = new Point(3, 73);
-            SkillLabel.Name = "SkillLabel";
-            SkillLabel.Size = new Size(28, 15);
-            SkillLabel.TabIndex = 7;
-            SkillLabel.Text = "Skill";
-            // 
             // NameTextBox
             // 
             NameTextBox.Location = new Point(93, 41);
             NameTextBox.Name = "NameTextBox";
-            NameTextBox.Size = new Size(182, 23);
+            NameTextBox.Size = new Size(210, 23);
             NameTextBox.TabIndex = 1;
             NameTextBox.TextChanged += NameTextBox_TextChanged;
             // 
             // LevelLabel
             // 
             LevelLabel.AutoSize = true;
-            LevelLabel.Location = new Point(3, 101);
+            LevelLabel.Location = new Point(3, 72);
             LevelLabel.Name = "LevelLabel";
             LevelLabel.Size = new Size(34, 15);
             LevelLabel.TabIndex = 8;
@@ -193,29 +190,20 @@
             // 
             // LevelNumericSelector
             // 
-            LevelNumericSelector.Location = new Point(93, 99);
+            LevelNumericSelector.Location = new Point(93, 70);
             LevelNumericSelector.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             LevelNumericSelector.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             LevelNumericSelector.Name = "LevelNumericSelector";
-            LevelNumericSelector.Size = new Size(182, 23);
+            LevelNumericSelector.Size = new Size(210, 23);
             LevelNumericSelector.TabIndex = 3;
             LevelNumericSelector.Value = new decimal(new int[] { 1, 0, 0, 0 });
             LevelNumericSelector.ValueChanged += LevelNumericSelector_ValueChanged;
-            // 
-            // SkillsComboBox
-            // 
-            SkillsComboBox.FormattingEnabled = true;
-            SkillsComboBox.Location = new Point(93, 70);
-            SkillsComboBox.Name = "SkillsComboBox";
-            SkillsComboBox.Size = new Size(182, 23);
-            SkillsComboBox.TabIndex = 2;
-            SkillsComboBox.SelectedIndexChanged += SkillsComboBox_SelectedIndexChanged;
             // 
             // ModKeyTextBox
             // 
             ModKeyTextBox.Location = new Point(93, 12);
             ModKeyTextBox.Name = "ModKeyTextBox";
-            ModKeyTextBox.Size = new Size(182, 23);
+            ModKeyTextBox.Size = new Size(210, 23);
             ModKeyTextBox.TabIndex = 0;
             ModKeyTextBox.TextChanged += ModKeyTextBox_TextChanged;
             // 
@@ -232,7 +220,7 @@
             // 
             ObjectTypeLabel.AutoSize = true;
             ObjectTypeLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            ObjectTypeLabel.Location = new Point(503, 333);
+            ObjectTypeLabel.Location = new Point(503, 361);
             ObjectTypeLabel.Name = "ObjectTypeLabel";
             ObjectTypeLabel.Size = new Size(34, 15);
             ObjectTypeLabel.TabIndex = 16;
@@ -240,9 +228,10 @@
             // 
             // ImportButton
             // 
-            ImportButton.Location = new Point(499, 612);
+            ImportButton.Location = new Point(499, 732);
+            ImportButton.Margin = new Padding(1);
             ImportButton.Name = "ImportButton";
-            ImportButton.Size = new Size(140, 23);
+            ImportButton.Size = new Size(153, 23);
             ImportButton.TabIndex = 8;
             ImportButton.Text = "Import";
             ImportButton.UseVisualStyleBackColor = true;
@@ -250,9 +239,10 @@
             // 
             // SortButton
             // 
-            SortButton.Location = new Point(499, 635);
+            SortButton.Location = new Point(499, 757);
+            SortButton.Margin = new Padding(1);
             SortButton.Name = "SortButton";
-            SortButton.Size = new Size(140, 23);
+            SortButton.Size = new Size(153, 23);
             SortButton.TabIndex = 12;
             SortButton.Text = "Sort";
             SortButton.UseVisualStyleBackColor = true;
@@ -260,9 +250,10 @@
             // 
             // ClearButton
             // 
-            ClearButton.Location = new Point(639, 635);
+            ClearButton.Location = new Point(654, 757);
+            ClearButton.Margin = new Padding(1);
             ClearButton.Name = "ClearButton";
-            ClearButton.Size = new Size(140, 23);
+            ClearButton.Size = new Size(153, 23);
             ClearButton.TabIndex = 10;
             ClearButton.Text = "Clear";
             ClearButton.UseVisualStyleBackColor = true;
@@ -271,9 +262,10 @@
             // AddItemButton
             // 
             AddItemButton.Image = Properties.Resources.item_icon;
-            AddItemButton.Location = new Point(499, 549);
+            AddItemButton.Location = new Point(499, 661);
+            AddItemButton.Margin = new Padding(0, 1, 0, 1);
             AddItemButton.Name = "AddItemButton";
-            AddItemButton.Size = new Size(40, 40);
+            AddItemButton.Size = new Size(44, 44);
             AddItemButton.TabIndex = 18;
             AddItemButton.UseVisualStyleBackColor = true;
             AddItemButton.Click += AddItemButton_Click;
@@ -281,9 +273,10 @@
             // AddBlockButton
             // 
             AddBlockButton.Image = Properties.Resources.block_icon;
-            AddBlockButton.Location = new Point(579, 549);
+            AddBlockButton.Location = new Point(587, 661);
+            AddBlockButton.Margin = new Padding(0, 1, 0, 1);
             AddBlockButton.Name = "AddBlockButton";
-            AddBlockButton.Size = new Size(40, 40);
+            AddBlockButton.Size = new Size(44, 44);
             AddBlockButton.TabIndex = 19;
             AddBlockButton.UseVisualStyleBackColor = true;
             AddBlockButton.Click += AddBlockButton_Click;
@@ -291,9 +284,10 @@
             // AddEntityButton
             // 
             AddEntityButton.Image = Properties.Resources.entity_icon;
-            AddEntityButton.Location = new Point(619, 549);
+            AddEntityButton.Location = new Point(631, 661);
+            AddEntityButton.Margin = new Padding(0, 1, 0, 1);
             AddEntityButton.Name = "AddEntityButton";
-            AddEntityButton.Size = new Size(40, 40);
+            AddEntityButton.Size = new Size(44, 44);
             AddEntityButton.TabIndex = 20;
             AddEntityButton.UseVisualStyleBackColor = true;
             AddEntityButton.Click += AddEntityButton_Click;
@@ -301,9 +295,10 @@
             // AddMiningButton
             // 
             AddMiningButton.Image = Properties.Resources.mining_icon;
-            AddMiningButton.Location = new Point(659, 549);
+            AddMiningButton.Location = new Point(675, 661);
+            AddMiningButton.Margin = new Padding(0, 1, 0, 1);
             AddMiningButton.Name = "AddMiningButton";
-            AddMiningButton.Size = new Size(40, 40);
+            AddMiningButton.Size = new Size(44, 44);
             AddMiningButton.TabIndex = 21;
             AddMiningButton.UseVisualStyleBackColor = true;
             AddMiningButton.Click += AddMiningButton_Click;
@@ -311,9 +306,10 @@
             // AddSmithingButton
             // 
             AddSmithingButton.Image = Properties.Resources.smithing_icon;
-            AddSmithingButton.Location = new Point(699, 549);
+            AddSmithingButton.Location = new Point(719, 661);
+            AddSmithingButton.Margin = new Padding(0, 1, 0, 1);
             AddSmithingButton.Name = "AddSmithingButton";
-            AddSmithingButton.Size = new Size(40, 40);
+            AddSmithingButton.Size = new Size(44, 44);
             AddSmithingButton.TabIndex = 22;
             AddSmithingButton.UseVisualStyleBackColor = true;
             AddSmithingButton.Click += AddSmithingButton_Click;
@@ -321,18 +317,20 @@
             // AddBrewingButton
             // 
             AddBrewingButton.Image = Properties.Resources.brewing_icon;
-            AddBrewingButton.Location = new Point(739, 549);
+            AddBrewingButton.Location = new Point(763, 661);
+            AddBrewingButton.Margin = new Padding(0, 1, 0, 1);
             AddBrewingButton.Name = "AddBrewingButton";
-            AddBrewingButton.Size = new Size(40, 40);
+            AddBrewingButton.Size = new Size(44, 44);
             AddBrewingButton.TabIndex = 23;
             AddBrewingButton.UseVisualStyleBackColor = true;
             AddBrewingButton.Click += AddBrewingButton_Click;
             // 
             // BulkAddButton
             // 
-            BulkAddButton.Location = new Point(499, 589);
+            BulkAddButton.Location = new Point(499, 707);
+            BulkAddButton.Margin = new Padding(1);
             BulkAddButton.Name = "BulkAddButton";
-            BulkAddButton.Size = new Size(140, 23);
+            BulkAddButton.Size = new Size(153, 23);
             BulkAddButton.TabIndex = 24;
             BulkAddButton.Text = "Bulk add";
             BulkAddButton.UseVisualStyleBackColor = true;
@@ -340,9 +338,10 @@
             // 
             // TemplateButton
             // 
-            TemplateButton.Location = new Point(639, 589);
+            TemplateButton.Location = new Point(654, 707);
+            TemplateButton.Margin = new Padding(1);
             TemplateButton.Name = "TemplateButton";
-            TemplateButton.Size = new Size(140, 23);
+            TemplateButton.Size = new Size(153, 23);
             TemplateButton.TabIndex = 25;
             TemplateButton.Text = "Template";
             TemplateButton.UseVisualStyleBackColor = true;
@@ -350,9 +349,10 @@
             // 
             // ConvertButton
             // 
-            ConvertButton.Location = new Point(499, 527);
+            ConvertButton.Location = new Point(499, 636);
+            ConvertButton.Margin = new Padding(1);
             ConvertButton.Name = "ConvertButton";
-            ConvertButton.Size = new Size(280, 23);
+            ConvertButton.Size = new Size(308, 23);
             ConvertButton.TabIndex = 17;
             ConvertButton.Text = "Convert";
             ConvertButton.UseVisualStyleBackColor = true;
@@ -362,15 +362,16 @@
             // 
             MetadataValuesControl.Location = new Point(499, 12);
             MetadataValuesControl.Name = "MetadataValuesControl";
-            MetadataValuesControl.Size = new Size(280, 323);
+            MetadataValuesControl.Size = new Size(308, 351);
             MetadataValuesControl.TabIndex = 26;
             // 
             // AddMaterialItemButton
             // 
             AddMaterialItemButton.Image = Properties.Resources.material_item_icon;
-            AddMaterialItemButton.Location = new Point(539, 549);
+            AddMaterialItemButton.Location = new Point(543, 661);
+            AddMaterialItemButton.Margin = new Padding(0, 1, 0, 1);
             AddMaterialItemButton.Name = "AddMaterialItemButton";
-            AddMaterialItemButton.Size = new Size(40, 40);
+            AddMaterialItemButton.Size = new Size(44, 44);
             AddMaterialItemButton.TabIndex = 27;
             AddMaterialItemButton.UseVisualStyleBackColor = true;
             AddMaterialItemButton.Click += AddMaterialItemButton_Click;
@@ -379,7 +380,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(791, 671);
+            ClientSize = new Size(826, 800);
             Controls.Add(AddMaterialItemButton);
             Controls.Add(MetadataValuesControl);
             Controls.Add(BulkAddButton);
@@ -418,10 +419,8 @@
         private Label ModKeyLabel;
         private Panel ItemPanel;
         private Label NameLabel;
-        private Label SkillLabel;
         private Label LevelLabel;
         private TextBox NameTextBox;
-        private ComboBox SkillsComboBox;
         private NumericUpDown LevelNumericSelector;
         private ListBox ObjectsListBox;
         private Button DeleteButton;
@@ -446,5 +445,6 @@
         private Button ConvertButton;
         private Controls.MetadataControl MetadataValuesControl;
         private Button AddMaterialItemButton;
+        private Controls.SkillSelectorControl SkillSelectorControl;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.IO.Compression;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using LevelZHelper.Helpers.EqualityComparers;
 using LevelZHelper.Models;
 using LevelZHelper.Models.AuxFiles;
 using LevelZHelper.Models.ConfigFiles;
@@ -176,18 +177,22 @@ namespace LevelZHelper.Managers
             CreateJar(tempPath, dialog);
         }
 
-        internal void AppendItems(IEnumerable<ILevelConfig>? items)
+        internal void MergeItems(IEnumerable<ILevelConfig>? items)
         {
             if (items == null) return;
 
-            _configs.AddRange(items);
+            var comparer = new LevelConfigEqualityComparer();
+
+            var distinctItems = items.Where(i => !_configs.Any(c => comparer.Equals(i, c)));
+
+            _configs.AddRange(distinctItems);
         }
 
         internal void AddItemsFromTemplate(ITemplate template)
         {
             var newItems = template.GetLevelConfigs();
 
-            AppendItems(newItems);
+            MergeItems(newItems);
         }
 
         #region Import functions

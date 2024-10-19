@@ -332,7 +332,7 @@ namespace LevelZHelper
         {
             if (items != null)
             {
-                _configManager.AppendItems(items);
+                _configManager.MergeItems(items);
 
                 RefreshList();
 

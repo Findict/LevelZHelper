@@ -18,9 +18,9 @@ namespace LevelZHelper.Models.LevelConfigs
 
             ModId = splitName?.FirstOrDefault() ?? string.Empty;
             Name = splitName?.LastOrDefault() ?? string.Empty;
-
             Skill = fileData.Skill?.ToSkills() ?? Skills.None;
             Level = fileData.Level != null ? Math.Clamp(fileData.Level.Value, 1, 20) : 1;
+            Replace = fileData.Replace ?? false;
         }
 
         public string? ModId { get; set; }
@@ -32,6 +32,8 @@ namespace LevelZHelper.Models.LevelConfigs
         public int Level { get; private set; } = 1;
 
         public string? Material { get; set; }
+
+        public bool Replace { get; set; }
 
         public string TypeString => "Item";
 
@@ -58,7 +60,7 @@ namespace LevelZHelper.Models.LevelConfigs
             var fullName = $"{ModId}:{Name}";
             var name = fullName.Length > 47 ? $"{fullName[..44]}..." : fullName;
 
-            return $"[I] {name,-47} - {Skill,-8} {Level,2}";
+            return $"[I] {name,-47} {(Replace ? '=' : '-')} {Skill,-8} {Level,2}";
         }
     }
 }

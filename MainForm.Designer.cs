@@ -62,6 +62,7 @@
             SearchTextBox = new TextBox();
             ResetSearchButton = new FontAwesome.Sharp.IconButton();
             ItemCountLabel = new Label();
+            ReplaceCheckBox = new CheckBox();
             ItemPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)LevelNumericSelector).BeginInit();
             SuspendLayout();
@@ -415,11 +416,23 @@
             ItemCountLabel.Text = "0";
             ItemCountLabel.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // ReplaceCheckBox
+            // 
+            ReplaceCheckBox.AutoSize = true;
+            ReplaceCheckBox.Location = new Point(733, 360);
+            ReplaceCheckBox.Name = "ReplaceCheckBox";
+            ReplaceCheckBox.Size = new Size(67, 19);
+            ReplaceCheckBox.TabIndex = 29;
+            ReplaceCheckBox.Text = "Replace";
+            ReplaceCheckBox.UseVisualStyleBackColor = true;
+            ReplaceCheckBox.CheckedChanged += ReplaceCheckBox_CheckedChanged;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(826, 800);
+            Controls.Add(ReplaceCheckBox);
             Controls.Add(ItemCountLabel);
             Controls.Add(ResetSearchButton);
             Controls.Add(SearchTextBox);
@@ -491,5 +504,6 @@
         private FontAwesome.Sharp.IconButton ResetSearchButton;
         private Controls.SkillSelectorControl SkillSelector;
         private Label ItemCountLabel;
+        private CheckBox ReplaceCheckBox;
     }
 }

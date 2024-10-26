@@ -9,7 +9,7 @@ namespace LevelZHelper.Models.ConfigFiles
 
         public EntityConfigFile(EntityLevelConfig levelConfig)
         {
-            Replace = false;
+            Replace = levelConfig.Replace;
             Skill = levelConfig.Skill.ToString().ToLower();
             Level = levelConfig.Level;
             Entity = $"{levelConfig.ModId}:{levelConfig.Name}";

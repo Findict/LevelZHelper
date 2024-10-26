@@ -9,7 +9,7 @@ namespace LevelZHelper.Models.ConfigFiles
 
         public ItemConfigFile(ItemLevelConfig levelConfig)
         {
-            Replace = false;
+            Replace = levelConfig.Replace;
             Skill = levelConfig.Skill.ToString().ToLower();
             Level = levelConfig.Level;
             Item = "minecraft:custom_item";

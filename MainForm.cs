@@ -88,6 +88,7 @@ namespace LevelZHelper
                     if (_activeItems.All(s => s.Name == prototype.Name)) NameTextBox.Text = prototype.Name;
                     if (_activeItems.All(s => s.Level == prototype.Level)) LevelNumericSelector.Value = prototype.Level;
                     if (_activeItems.All(s => s.Material == prototype.Material)) MaterialTextBox.Text = prototype.Material;
+                    if (_activeItems.All(s => s.Replace == prototype.Replace)) ReplaceCheckBox.Checked = prototype.Replace;
 
                     if (_activeItems.All(s => s.Skill == prototype.Skill)) SkillSelector.SetValue(prototype.Skill);
                     else SkillSelector.SetValue(Skills.None);
@@ -204,6 +205,19 @@ namespace LevelZHelper
                 foreach (var item in _activeItems)
                 {
                     item.Material = textBox.Text;
+                }
+
+                UpdateSelectedItems();
+            }
+        }
+
+        private void ReplaceCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CheckBox checkBox && _activeItems != null && _activeItems.Count != 0)
+            {
+                foreach (var item in _activeItems)
+                {
+                    item.Replace = checkBox.Checked;
                 }
 
                 UpdateSelectedItems();
@@ -525,6 +539,7 @@ namespace LevelZHelper
             SkillSelector.SetActive(_activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Skill) > 0));
             LevelNumericSelector.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Level) > 0);
             MaterialTextBox.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.Material) > 0);
+            ReplaceCheckBox.Enabled = _activeItems != null && _activeItems.Count != 0;
             ToSmithingButton.Enabled = _activeItems != null && _activeItems.Count != 0 && _activeItems.Any(i => (i.AllowedFields & EditFields.ToSmithing) > 0);
             DuplicateButton.Enabled = _activeItems != null && _activeItems.Count != 0;
             DeleteButton.Enabled = _activeItems != null && _activeItems.Count != 0;

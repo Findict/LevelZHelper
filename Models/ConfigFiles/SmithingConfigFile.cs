@@ -9,7 +9,7 @@ namespace LevelZHelper.Models.ConfigFiles
 
         public SmithingConfigFile(IEnumerable<SmithingLevelConfig> levelConfig)
         {
-            Replace = false;
+            Replace = levelConfig.First().Replace;
             Level = levelConfig.First().Level;
             Items = levelConfig.Select(config => $"{config.ModId}:{config.Name}").ToList();
         }

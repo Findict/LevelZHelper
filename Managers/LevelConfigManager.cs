@@ -463,9 +463,22 @@ namespace LevelZHelper.Managers
             {
                 var levelItems = items.Where(i => i.Level == itemLevel).ToList();
 
-                var configFileItem = new MiningConfigFile(items.Where(i => i.Level == itemLevel).ToList());
+                var replaceItems = levelItems.Where(i => i.Replace).ToList();
+                var nonReplaceItems = levelItems.Except(replaceItems);
 
-                WriteFile(selectedPath, $"{levelItems.First().ModId}_level_{itemLevel}", configFileItem);
+                if (replaceItems.Any())
+                {
+                    var configFileItem = new MiningConfigFile(replaceItems);
+
+                    WriteFile(selectedPath, $"{replaceItems.First().ModId}_r_level_{itemLevel}", configFileItem);
+                }
+
+                if (nonReplaceItems.Any())
+                {
+                    var configFileItem = new MiningConfigFile(nonReplaceItems);
+
+                    WriteFile(selectedPath, $"{nonReplaceItems.First().ModId}_level_{itemLevel}", configFileItem);
+                }
             }
         }
 
@@ -486,9 +499,22 @@ namespace LevelZHelper.Managers
             {
                 var levelItems = items.Where(i => i.Level == itemLevel).ToList();
 
-                var configFileItem = new SmithingConfigFile(items.Where(i => i.Level == itemLevel).ToList());
+                var replaceItems = levelItems.Where(i => i.Replace).ToList();
+                var nonReplaceItems = levelItems.Except(replaceItems);
 
-                WriteFile(selectedPath, $"{levelItems.First().ModId}_level_{itemLevel}", configFileItem);
+                if (replaceItems.Any())
+                {
+                    var configFileItem = new SmithingConfigFile(replaceItems);
+
+                    WriteFile(selectedPath, $"{replaceItems.First().ModId}_r_level_{itemLevel}", configFileItem);
+                }
+
+                if (nonReplaceItems.Any())
+                {
+                    var configFileItem = new SmithingConfigFile(nonReplaceItems);
+
+                    WriteFile(selectedPath, $"{nonReplaceItems.First().ModId}_level_{itemLevel}", configFileItem);
+                }
             }
         }
 
@@ -509,9 +535,22 @@ namespace LevelZHelper.Managers
             {
                 var levelItems = items.Where(i => i.Level == itemLevel).ToList();
 
-                var configFileItem = new BrewingConfigFile(items.Where(i => i.Level == itemLevel).ToList());
+                var replaceItems = levelItems.Where(i => i.Replace).ToList();
+                var nonReplaceItems = levelItems.Except(replaceItems);
 
-                WriteFile(selectedPath, $"{levelItems.First().ModId}_level_{itemLevel}", configFileItem);
+                if (replaceItems.Any())
+                {
+                    var configFileItem = new BrewingConfigFile(replaceItems);
+
+                    WriteFile(selectedPath, $"{replaceItems.First().ModId}_r_level_{itemLevel}", configFileItem);
+                }
+
+                if (nonReplaceItems.Any())
+                {
+                    var configFileItem = new BrewingConfigFile(nonReplaceItems);
+
+                    WriteFile(selectedPath, $"{nonReplaceItems.First().ModId}_level_{itemLevel}", configFileItem);
+                }
             }
         }
 

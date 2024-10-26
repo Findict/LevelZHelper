@@ -14,6 +14,8 @@ namespace LevelZHelper.Models.LevelConfigs.Interfaces
 
         string? Material { get; set; }
 
+        bool Replace { get; set; }
+
         string TypeString { get; }
 
         ConfigType ConfigType { get; }

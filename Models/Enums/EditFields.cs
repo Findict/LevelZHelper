@@ -9,5 +9,6 @@
         Skill = 1 << 3,
         Material = 1 << 4,
         ToSmithing = 1 << 5,
+        Replace = 1 << 6
     }
 }
